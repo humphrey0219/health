@@ -1,0 +1,8 @@
+spring: 
+  profiles: 
+    active: dev
+  jpa: 
+    database : MYSQL  
+    show-sql : true  
+    hibernate:  
+      ddl-auto : update 
