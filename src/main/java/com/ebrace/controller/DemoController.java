@@ -46,7 +46,7 @@ public class DemoController {
 	}
 	
 	@GetMapping("/echo")
-	public RestResult<?> demoTest() {
+	public RestResult<?> demoecho() {
 		log.info("Dome echo success");
 		return ResultUtil.success("Dome echo success");
 	}
