@@ -36,12 +36,9 @@ public class ArticleService implements IArticleService {
 	}
 
 	@Override
-	public void deleteArticle(Integer id) throws EbraceException{
-		
-		Article a = articleJpaRepository.findOne(id);
-		
+	public void deleteArticle(Integer id) throws EbraceException{		
+		Article a = articleJpaRepository.findOne(id);		
 		articleJpaRepository.delete(a);
-
 	}
 
 	@Override

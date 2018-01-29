@@ -1,6 +1,8 @@
 package com.ebrace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,29 @@ public class DemoController {
 	
 	@Autowired
 	ArticleService articleService;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	/**
+	 * 简单邮件发送demo
+	 * @return
+	 * @throws EbraceException
+	 */
+	@GetMapping("/mail")
+	public RestResult<?> sendmail()throws EbraceException {
+		
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("leealigner@qq.com");
+		message.setTo("lljit@qq.com");
+		message.setSubject("主题：简单邮件");
+		message.setText("测试邮件内容");
+		mailSender.send(message);
+		
+		return ResultUtil.success("send email by leealigner@qq.com");
+		
+
+	}
 	
 	@GetMapping("/hello")
 	public RestResult<?> greet() throws EbraceException {
@@ -67,6 +92,8 @@ public class DemoController {
 		articleService.deleteArticle(id);
 		return ResultUtil.success("delete id:"+ id + "success");
 	}
+	
+	
 	
 	
 

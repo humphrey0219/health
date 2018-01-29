@@ -6,3 +6,15 @@ spring:
     show-sql : true  
     hibernate:  
       ddl-auto : update 
+  mail: 
+    host: smtp.qq.com
+    username: leealigner@qq.com
+    password: wcriymyzxppwbgic
+    properties: 
+      mail:
+        smtp: 
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    
