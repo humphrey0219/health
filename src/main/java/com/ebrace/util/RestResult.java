@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RestResult<T> {
 	
-	private boolean result;
+//	private boolean result;
 	private String message;
 	private Integer errorCode;
 	private T data; 

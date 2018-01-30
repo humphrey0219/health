@@ -46,7 +46,10 @@ public class HttpAspect {
 	@AfterReturning(returning = "ret", pointcut = "webLog()")  
     public void doAfterReturning(Object ret) throws Throwable {  
         // 处理完请求，返回内容  
-		log.info("RESPONSE : {}" , ret.toString());  
+		if(null != ret) {
+			log.info("RESPONSE : {}" , ret.toString()); 
+		}
+		 
 		log.info("SPEND TIME : {}" , (System.currentTimeMillis() - startTime.get()));  
     }  
 	

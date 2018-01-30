@@ -1,8 +1,6 @@
 package com.ebrace.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,39 +15,21 @@ import com.ebrace.service.impl.ArticleService;
 import com.ebrace.util.RestResult;
 import com.ebrace.util.ResultUtil;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
+@Api(value = "DemoController", description = "demo接口")
 @RequestMapping("/demo")
 public class DemoController {
 	
 	@Autowired
 	ArticleService articleService;
 	
-	@Autowired
-	private JavaMailSender mailSender;
 	
-	/**
-	 * 简单邮件发送demo
-	 * @return
-	 * @throws EbraceException
-	 */
-	@GetMapping("/mail")
-	public RestResult<?> sendmail()throws EbraceException {
-		
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("leealigner@qq.com");
-		message.setTo("lljit@qq.com");
-		message.setSubject("主题：简单邮件");
-		message.setText("测试邮件内容");
-		mailSender.send(message);
-		
-		return ResultUtil.success("send email by leealigner@qq.com");
-		
-
-	}
-	
+	@ApiOperation(value="测试程序", notes="测试service端抛出异常之后，是否能自动捕捉处理")
 	@GetMapping("/hello")
 	public RestResult<?> greet() throws EbraceException {
 		articleService.greet();
@@ -57,6 +37,7 @@ public class DemoController {
 		
 	}
 	
+	@ApiOperation(value="测试程序2", notes="测试controller 端抛出EbraceException异常之后，是否能自动捕捉处理")
 	@GetMapping("/hi")
 	public RestResult<?> hi() throws EbraceException {
 		try {
@@ -70,23 +51,27 @@ public class DemoController {
 		
 	}
 	
+	@ApiOperation(value="测试echo", notes="最简单的rest测试")
 	@GetMapping("/echo")
 	public RestResult<?> demoecho() {
 		log.info("Dome echo success");
 		return ResultUtil.success("Dome echo success");
 	}
 	
+	@ApiOperation(value="saveArticle", notes="保存文章测试")
 	@PostMapping("/article")
 	public RestResult<?> saveArticle(Article article) {
 	
 		return ResultUtil.success(articleService.saveArticle(article));
 	}
 	
+	@ApiOperation(value="findArticleById", notes="根据ID查询文章")
 	@GetMapping("/article/{id}")
 	public RestResult<?> findArticleById(@PathVariable("id") Integer id) {
 		return ResultUtil.success(articleService.findArticleById(id));
 	}
 	
+	@ApiOperation(value="deleteArticle", notes="删除文章")
 	@DeleteMapping("/article/{id}")
 	public RestResult<?> deleteArticleById(@PathVariable("id") Integer id) {
 		articleService.deleteArticle(id);
